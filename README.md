@@ -12,6 +12,17 @@ Iowa housing data can generalize to Seattle housing data.
 - **Primary (Train/Test):** Ames Housing Dataset — 2930 rows, 82 features
 - **Generalization Test:** King County Seattle — 21,613 rows, 21 features
 
+## Data
+Datasets are not included in this repo due to size and licensing.
+
+Download from Kaggle:
+- [Ames Housing Dataset](https://www.kaggle.com/datasets/prevek18/ames-housing-dataset)
+- [King County House Sales](https://www.kaggle.com/datasets/harlfoxem/housesalesprediction)
+
+After downloading, place files in:
+- `Housing_Project/data/raw/AmesHousing.csv`
+- `Housing_Project/data/raw/kc_house_data.csv`
+
 ## Project Structure
 ```
 Housing_Project/
