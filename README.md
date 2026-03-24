@@ -8,6 +8,25 @@ Most housing price projects stop at model accuracy. This project goes deeper —
 analyzing WHERE models fail, WHY they fail, and whether a model trained on 
 Iowa housing data can generalize to Seattle housing data.
 
+## Project Roadmap
+
+This project follows a systematic 9-phase approach from EDA to cross-regional generalization:
+
+### Complete Roadmap - Page 1
+![Project Roadmap - Page 1](Housing_Project_Roadmap_page-0001.jpg)
+
+### Complete Roadmap - Page 2
+![Project Roadmap - Page 2](Housing_Project_Roadmap_page-0002.jpg)
+
+**Key Highlights:**
+- 9 machine learning models (Linear Regression → XGBoost)
+- Cross-regional transfer test (Iowa → Seattle)
+- Deep error analysis by price tier and neighborhood
+- SHAP interpretability analysis
+- 30+ academic citations
+
+[📄 Download full roadmap (PDF)](Housing_Project_Roadmap.pdf)
+
 ## Datasets
 - **Primary (Train/Test):** Ames Housing Dataset — 2930 rows, 82 features
 - **Generalization Test:** King County Seattle — 21,613 rows, 21 features
