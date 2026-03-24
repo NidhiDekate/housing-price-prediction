@@ -50,18 +50,56 @@ Random Forest, Gradient Boosting, XGBoost, SVR
 | Linear Regression | $31,268 | 0.878 |
 | SVR | $94,323 | -0.109 |
 
+### Cross-Regional Transfer (Ames → King County)
+| Model | RMSE | R² | Notes |
+|-------|------|-----|-------|
+| XGBoost (transfer) | $492,187 | -0.797 | Best transfer performance |
+| Random Forest (transfer) | $510,548 | -0.934 | Slightly worse |
+| Linear Regression (transfer) | $170M | -216k | Complete failure |
+| XGBoost (native KC training) | $230,890 | 0.647 | Much better with native training |
+
 ## Key Findings
+
+### Model Performance
 1. Tree models significantly outperform linear models — confirms strong nonlinearity in housing data
-2. Luxury houses (>$300k) have 4x higher RMSE than low-tier houses — model struggles with rare examples
-3. OldTown neighborhood has highest error due to high price variance within neighborhood ($115k std)
-4. XGBoost needs tuning but wins on final performance — Random Forest is more stable out of the box
-5. Learning curves show Linear Regression is high bias — more data won't help, needs more complexity
+2. XGBoost needs tuning but wins on final performance — Random Forest is more stable out of the box
+3. Learning curves show Linear Regression is high bias — more data won't help, needs more complexity
+
+### Error Analysis
+4. Luxury houses (>$300k) have 4x higher RMSE than low-tier houses — model struggles with rare examples
+5. OldTown neighborhood has highest error due to high price variance within neighborhood ($115k std)
+6. Model performance degrades significantly in edge cases (very old houses, extreme sizes)
+
+### Cross-Regional Generalization
+7. **Models trained on Iowa fail on Seattle** — negative R² indicates worse than predicting mean
+8. **Feature mismatch is critical** — only 9/174 features available from King County; 165 filled with defaults
+9. **XGBoost transfers best** — complex models handle distribution shift better than linear models
+10. **Feature importance shifts across regions** — Seattle prioritizes quality (grade) 2.5x more than Iowa
+11. **Native training helps but limited** — RMSE improves from $492k → $231k, but still constrained by feature quality
+
+### Interpretability
+12. **SHAP bridges interpretability gap** — XGBoost + SHAP provides feature explanations comparable to linear models
+13. **Linear sacrifices 29% accuracy** — the $9,000 RMSE gap from Linear → XGBoost could impact real estate decisions
+14. **Context-dependent model selection** — choose Linear for regulatory/legal contexts, XGBoost for production systems
+
+## What Makes This Project Different
+- **Cross-regional generalization test** — most student projects test on same dataset; this tests real distribution shift
+- **Deep error analysis** — price tier analysis, neighborhood analysis, residual patterns
+- **Comprehensive model comparison** — 9 models with learning curves and bias-variance analysis
+- **SHAP interpretability** — demonstrates modern ML interpretability tools for model selection decisions
+- **Real-world insights** — feature mismatch, geographic context, market dynamics all explored
 
 ## Tech Stack
-Python, Pandas, Scikit-learn, XGBoost, SHAP, Matplotlib, Seaborn
+Python, Pandas, Scikit-learn, XGBoost, SHAP, Matplotlib, Seaborn, Category Encoders
 
 ## How to Run
 1. Clone this repo
 2. Upload datasets to Google Drive at `Housing_Project/data/raw/`
 3. Run notebooks in order (01 → 08)
 4. utils.py is loaded via exec() in each notebook
+
+## Future Work
+- Test additional cross-regional pairs (e.g., Ames → California housing)
+- Implement domain adaptation techniques to improve transfer performance
+- Build ensemble models combining predictions from multiple regions
+- Deploy best model as web API for real-time price predictions
